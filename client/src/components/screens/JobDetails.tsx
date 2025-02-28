@@ -40,6 +40,8 @@ const JobDetails: React.FC<Props> = ({ jobId }: Props) => {
           <Image
             src={job.employer_logo}
             alt={job.employer_name}
+            width={400}
+            height={400}
             className="h-16 w-auto mb-4"
           />
         )}
