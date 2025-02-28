@@ -18,11 +18,11 @@ USER node
 
 WORKDIR /usr/src/app
 
-COPY package.json yarn.lock ./
+COPY package.json yarn.lock .env ./
 
 RUN yarn install --production --frozen-lockfile
 
 COPY --from=builder /usr/src/app/dist ./dist
 
 EXPOSE 5000
-CMD [ "node", "dist/index.js" ]
+CMD [ "node", "dist/server.js" ]
