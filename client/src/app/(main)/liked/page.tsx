@@ -15,7 +15,12 @@ const LikedJobs = () => {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {likedJobs.map((job) => (
-            <JobCard showLikeButton={false} key={job.job_id} job={job} />
+            <JobCard
+              showRemoveButton
+              showLikeButton={false}
+              key={job.job_id}
+              job={job}
+            />
           ))}
         </div>
       )}

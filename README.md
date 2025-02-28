@@ -51,3 +51,4 @@ yarn install && yarn dev
 ![create-profile](./assets/create-profile.png)
 ![job-details](./assets/job-details.png)
 ![jobs](./assets/jobs.png)
+![liked](./assets/liked.png)

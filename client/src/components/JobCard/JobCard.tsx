@@ -9,10 +9,15 @@ import { useState, useEffect } from 'react';
 type Params = {
   job: Job;
   showLikeButton?: boolean;
+  showRemoveButton?: boolean;
 };
 
-const JobCard: React.FC<Params> = ({ job, showLikeButton = true }) => {
-  const { likeJob, isJobLiked } = useJobStore();
+const JobCard: React.FC<Params> = ({
+  job,
+  showLikeButton = true,
+  showRemoveButton = false,
+}) => {
+  const { likeJob, removeJob, isJobLiked } = useJobStore();
   const [liked, setLiked] = useState(false);
 
   useEffect(() => {
@@ -23,6 +28,13 @@ const JobCard: React.FC<Params> = ({ job, showLikeButton = true }) => {
     if (!liked) {
       likeJob(job);
       setLiked(true);
+    }
+  };
+
+  const handleUnlike = () => {
+    if (liked) {
+      removeJob(job.job_id);
+      setLiked(false);
     }
   };
 
@@ -50,6 +62,14 @@ const JobCard: React.FC<Params> = ({ job, showLikeButton = true }) => {
             disabled={liked}
           >
             {liked ? 'Liked ✔️' : 'Like'}
+          </Button>
+        )}
+        {showRemoveButton && (
+          <Button
+            className="bg-red-500 text-white px-4 py-2 hover:bg-red-600"
+            onClick={handleUnlike}
+          >
+            Remove
           </Button>
         )}
       </div>
