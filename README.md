@@ -47,3 +47,7 @@ cd client
 cp .env.example .env.local
 yarn install && yarn dev
 ```
+
+![create-profile](./assets/create-profile.png)
+![job-details](./assets/job-details.png)
+![jobs](./assets/jobs.png)
