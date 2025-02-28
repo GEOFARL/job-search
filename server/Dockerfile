@@ -18,7 +18,7 @@ USER node
 
 WORKDIR /usr/src/app
 
-COPY package.json yarn.lock .env ./
+COPY package.json yarn.lock ./
 
 RUN yarn install --production --frozen-lockfile
 
