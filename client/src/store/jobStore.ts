@@ -5,9 +5,10 @@ type JobStore = {
   likedJobs: Job[];
   likeJob: (job: Job) => void;
   removeJob: (id: string) => void;
+  isJobLiked: (id: string) => boolean;
 };
 
-export const useJobStore = create<JobStore>((set) => ({
+export const useJobStore = create<JobStore>((set, get) => ({
   likedJobs: JSON.parse(
     typeof window !== 'undefined'
       ? localStorage.getItem('likedJobs') || '[]'
@@ -15,6 +16,9 @@ export const useJobStore = create<JobStore>((set) => ({
   ),
   likeJob: (job) =>
     set((state) => {
+      if (state.likedJobs.some((likedJob) => likedJob.job_id === job.job_id)) {
+        return state;
+      }
       const updatedJobs = [...state.likedJobs, job];
       localStorage.setItem('likedJobs', JSON.stringify(updatedJobs));
       return { likedJobs: updatedJobs };
@@ -25,4 +29,5 @@ export const useJobStore = create<JobStore>((set) => ({
       localStorage.setItem('likedJobs', JSON.stringify(updatedJobs));
       return { likedJobs: updatedJobs };
     }),
+  isJobLiked: (id) => get().likedJobs.some((job) => job.job_id === id),
 }));

@@ -11,7 +11,7 @@ export type Job = {
   employer_name: string;
   employer_logo: string;
   job_location: string;
-  job_posted_at: string;
+  job_posted_at?: string;
   job_highlights: {
     Qualifications: string[];
     Benefits: string[];

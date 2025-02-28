@@ -47,7 +47,9 @@ const JobDetails: React.FC<Props> = ({ jobId }: Props) => {
         <h1 className="text-2xl font-bold">{job.job_title}</h1>
         <p className="text-gray-700 text-sm">{job.employer_name}</p>
         <p className="text-gray-600">{job.job_location}</p>
-        <p className="text-sm text-gray-500">Posted: {job.job_posted_at}</p>
+        {job.job_posted_at && (
+          <p className="text-sm text-gray-500">Posted: {job.job_posted_at}</p>
+        )}
 
         <div className="mt-4">
           <h2 className="font-semibold">Description</h2>
@@ -85,7 +87,7 @@ const JobDetails: React.FC<Props> = ({ jobId }: Props) => {
             rel="noopener noreferrer"
             className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
           >
-            Apply Now
+            Details
           </a>
         </div>
       </div>

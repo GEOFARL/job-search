@@ -4,14 +4,27 @@ import { useJobStore } from '@/store/jobStore';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Job } from '@/types/jobs';
+import { useState, useEffect } from 'react';
 
 type Params = {
   job: Job;
+  showLikeButton?: boolean;
 };
 
-const JobCard: React.FC<Params> = ({ job }) => {
-  const { likeJob } = useJobStore();
-  console.log(job);
+const JobCard: React.FC<Params> = ({ job, showLikeButton = true }) => {
+  const { likeJob, isJobLiked } = useJobStore();
+  const [liked, setLiked] = useState(false);
+
+  useEffect(() => {
+    setLiked(isJobLiked(job.job_id));
+  }, [isJobLiked, job.job_id]);
+
+  const handleLike = () => {
+    if (!liked) {
+      likeJob(job);
+      setLiked(true);
+    }
+  };
 
   return (
     <div className="border p-4 rounded-lg shadow flex flex-col justify-between">
@@ -22,16 +35,23 @@ const JobCard: React.FC<Params> = ({ job }) => {
       <div className="mt-3 flex gap-2 justify-end items-center">
         <Link
           href={`/job-details/${job.job_id}`}
-          className=" text-blue-500  px-4 py-2"
+          className="text-blue-500 px-4 py-2"
         >
           Details
         </Link>
-        <Button
-          className="bg-blue-500 text-white px-4 py-2"
-          onClick={() => likeJob(job)}
-        >
-          Like
-        </Button>
+        {showLikeButton && (
+          <Button
+            className={`px-4 py-2 transition ${
+              liked
+                ? 'bg-green-500 text-white cursor-default'
+                : 'bg-blue-500 text-white hover:bg-blue-600'
+            }`}
+            onClick={handleLike}
+            disabled={liked}
+          >
+            {liked ? 'Liked ✔️' : 'Like'}
+          </Button>
+        )}
       </div>
     </div>
   );
